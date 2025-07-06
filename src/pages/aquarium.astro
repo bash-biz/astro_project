@@ -1,0 +1,53 @@
+---
+// aquarium.astro
+---
+<h2>Pixel Aquarium</h2>
+<canvas id="aquarium" width="800" height="600"></canvas>
+
+<script is:inline>
+  const canvas = document.getElementById("aquarium");
+  const ctx = canvas.getContext("2d");
+
+  const fish = {
+    x: 100,
+    y: 300,
+    width: 16,
+    height: 8,
+    color: "yellow",
+    dx: 2,
+  };
+
+  function drawAquarium() {
+    // background
+    ctx.fillStyle = "#2c3e50";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // seaweed (example)
+    ctx.fillStyle = "#27ae60";
+    for (let i = 0; i < 5; i++) {
+      ctx.fillRect(50 + i * 100, 550, 10, -40 - Math.random() * 40);
+    }
+  }
+
+  function drawFish() {
+    ctx.fillStyle = fish.color;
+    ctx.fillRect(fish.x, fish.y, fish.width, fish.height);
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawAquarium();
+    drawFish();
+    fish.x += fish.dx;
+    if (fish.x > canvas.width || fish.x < -fish.width) {
+      fish.dx *= -1; // reverse direction
+    }
+    requestAnimationFrame(update);
+  }
+
+  canvas.addEventListener("click", () => {
+    fish.dx *= -1; // reverse on click
+  });
+
+  update();
+</script>
