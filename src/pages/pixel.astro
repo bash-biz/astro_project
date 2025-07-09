@@ -1,0 +1,54 @@
+---
+---
+<canvas id="kaleidoscope" width="400" height="400"></canvas>
+
+<style>
+  canvas {
+    image-rendering: pixelated;
+    /*border: 2px solid #000; */
+    display: block;
+    margin: 2rem auto;
+    background: #FEF7E7;
+  }
+</style>
+
+<script is:inline>
+  const canvas = document.getElementById('kaleidoscope');
+  const ctx = canvas.getContext('2d');
+
+  const size = 400;
+  const half = size / 2;
+  const pixel = 8;
+
+  function drawPattern() {
+    ctx.clearRect(0, 0, size, size);
+    const points = [];
+
+    for (let i = 0; i < 100; i++) {
+      const x = Math.floor(Math.random() * half / pixel) * pixel;
+      const y = Math.floor(Math.random() * half / pixel) * pixel;
+      const color = `hsl(${Math.random() * 360}, 60%, 60%)`;
+
+      points.push({ x, y, color });
+    }
+
+    points.forEach(({ x, y, color }) => {
+      ctx.fillStyle = color;
+
+      // Top-left
+      ctx.fillRect(x, y, pixel, pixel);
+
+      // Top-right
+      ctx.fillRect(half + (half - x - pixel), y, pixel, pixel);
+
+      // Bottom-left
+      ctx.fillRect(x, half + (half - y - pixel), pixel, pixel);
+
+      // Bottom-right
+      ctx.fillRect(half + (half - x - pixel), half + (half - y - pixel), pixel, pixel);
+    });
+  }
+
+  canvas.addEventListener("click", drawPattern);
+  drawPattern(); // Initial draw
+</script>
