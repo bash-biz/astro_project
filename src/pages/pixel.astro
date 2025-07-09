@@ -17,8 +17,8 @@
   const ctx = canvas.getContext('2d');
 
   const size = 400;
-  const half = size / 2;
-  const pixel = 8;
+  const half = size/2;
+  const pixel = 25;
 
   function drawPattern() {
     ctx.clearRect(0, 0, size, size);
@@ -27,7 +27,7 @@
     for (let i = 0; i < 100; i++) {
       const x = Math.floor(Math.random() * half / pixel) * pixel;
       const y = Math.floor(Math.random() * half / pixel) * pixel;
-      const color = `hsl(${Math.random() * 360}, 60%, 60%)`;
+      const color = `hsl(${Math.random() * 360}, 0%, 0%)`;
 
       points.push({ x, y, color });
     }
